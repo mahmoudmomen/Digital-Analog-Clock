@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Clock</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="clock">
+				<div class="circle" style="--clr: #ff2972" id="hoursCircle"></div>
+				<div class="circle circle2" style="--clr: #fee800" id="minutesCircle"></div>
+				<div class="circle circle3" style="--clr: #04fc43" id="secondsCircle"></div>
+
+				<span style="--i: 1"><b>1</b></span>
+				<span style="--i: 2"><b>2</b></span>
+				<span style="--i: 3"><b>3</b></span>
+				<span style="--i: 4"><b>4</b></span>
+				<span style="--i: 5"><b>5</b></span>
+				<span style="--i: 6"><b>6</b></span>
+				<span style="--i: 7"><b>7</b></span>
+				<span style="--i: 8"><b>8</b></span>
+				<span style="--i: 9"><b>9</b></span>
+				<span style="--i: 10"><b>10</b></span>
+				<span style="--i: 11"><b>11</b></span>
+				<span style="--i: 12"><b>12</b></span>
+			</div>
+
+			<!-- Digital Clock -->
+			<div class="digitalClock">
+				<span style="--clr: #ff2972" id="digHours">00</span>
+				<span style="--clr: #fee800" id="digMinutes">00</span>
+				<span style="--clr: #04fc43" id="digSeconds">00</span>
+				<span id="ampm">AM</span>
+			</div>
+		</div>
+		<script>
+			let hoursCircle = document.getElementById('hoursCircle');
+			let minutesCircle = document.getElementById('minutesCircle');
+			let secondsCircle = document.getElementById('secondsCircle');
+
+			setInterval(() => {
+				let time = new Date();
+
+				let hoursDeg = time.getHours() * (360 / 12);
+				let minutesDeg = time.getMinutes() * (360 / 12 / 5);
+				let secondsDeg = time.getSeconds() * (360 / 12 / 5);
+
+				hoursCircle.style.transform = `rotate(${hoursDeg + minutesDeg / 12}deg)`;
+				minutesCircle.style.transform = `rotate(${minutesDeg}deg)`;
+				secondsCircle.style.transform = `rotate(${secondsDeg}deg)`;
+
+				// Digital Clock
+				let digHours = document.getElementById('digHours');
+				let digMinutes = document.getElementById('digMinutes');
+				let digSeconds = document.getElementById('digSeconds');
+				let ampm = document.getElementById('ampm');
+
+				let hr = time.getHours();
+				let min = time.getMinutes();
+				let se = time.getSeconds();
+				let AmPm = hr >= 12 ? 'PM' : 'AM';
+
+				hr = hr > 12 ? hr - 12 : hr;
+
+				hr = hr < 10 ? `0${hr}` : hr;
+				min = min < 10 ? `0${min}` : min;
+				se = se < 10 ? `0${se}` : se;
+
+				digHours.innerHTML = hr;
+				digMinutes.innerHTML = min;
+				digSeconds.innerHTML = se;
+				ampm.innerHTML = AmPm;
+			});
+		</script>
+	</body>
+</html>
