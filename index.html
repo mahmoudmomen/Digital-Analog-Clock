@@ -63,6 +63,7 @@
 				let se = time.getSeconds();
 				let AmPm = hr >= 12 ? 'PM' : 'AM';
 
+				hr = hr == 0 ? 12 : hr;
 				hr = hr > 12 ? hr - 12 : hr;
 
 				hr = hr < 10 ? `0${hr}` : hr;
